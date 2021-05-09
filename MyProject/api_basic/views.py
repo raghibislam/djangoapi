@@ -17,18 +17,12 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
-class ArticleViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin):
+class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class =  ArticleSerializer
     queryset = Article.objects.all()
     
     
-    def update(self,request,pk=None):
-        article = Article.objects.get(pk=pk)
-        serializer = ArticleSerializer(article, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 
    
 
